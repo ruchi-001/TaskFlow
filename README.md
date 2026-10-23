@@ -4,8 +4,8 @@ TaskFlows is a lightweight task-management web application built with HTML, CSS,
 
 **Project status:** In development
 **Developer:** [Ruchi Kumari]
-**Live demo:** Add your deployed URL here
-**Repository:** Add your GitHub repository URL here
+**Live demo:** [https://taskflow-topaz-five.vercel.app/]
+**Repository:** [https://github.com/ruchi-001/TaskFlow.git]
 
 ## Features
 
