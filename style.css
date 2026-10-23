@@ -1,0 +1,549 @@
+
+/* ===== 1. Global reset ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary: #5145e5;
+    --primary-hover: #4035c7;
+    --background: #f5f6fc;
+    --surface: #ffffff;
+    --text: #202447;
+    --muted: #737b99;
+    --border: #e7e9f5;
+    --danger: #e54865;
+    --shadow: 0 8px 30px rgba(43, 48, 100, 0.06);
+}
+
+body {
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    padding: 32px 6%;
+    line-height: 1.5;
+}
+
+/* ===== 2. Header ===== */
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 28px;
+}
+
+.header h1 {
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 750;
+    letter-spacing: -1px;
+    color: var(--text);
+}
+
+.header p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* ===== 3. Progress panel ===== */
+.progress-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    min-height: 110px;
+    padding: 25px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+    color: var(--muted);
+}
+
+/* ===== 4. Search and category controls ===== */
+#SearchTask,
+#categoryFilter,
+#taskCategory,
+#taskInput {
+    min-height: 46px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 0 14px;
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#SearchTask {
+    width: min(100%, 340px);
+    margin: 0 10px 18px 0;
+}
+
+#categoryFilter {
+    min-width: 180px;
+    margin-bottom: 18px;
+    cursor: pointer;
+}
+
+#SearchTask:focus,
+#categoryFilter:focus,
+#taskCategory:focus,
+#taskInput:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(81, 69, 229, 0.12);
+}
+
+/* ===== 5. All / Active / Completed filters ===== */
+.task-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.task-filter button {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.task-filter button:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+
+.task-filter button:focus-visible,
+button:focus-visible {
+    outline: 3px solid rgba(81, 69, 229, 0.25);
+    outline-offset: 2px;
+}
+
+/* ===== 6. Task list panel ===== */
+#taskList,
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+/* Each task row */
+#taskList > div,
+.taskList > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 15px 17px;
+    box-shadow: 0 3px 12px rgba(43, 48, 100, 0.025);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+#taskList > div:hover,
+.taskList > div:hover {
+    border-color: #d5d1ff;
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+}
+
+#taskList input[type="checkbox"],
+.taskList input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+#taskList label,
+.taskList label {
+    flex: 1;
+    min-width: 100px;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#taskList input[type="checkbox"]:checked + label,
+.taskList input[type="checkbox"]:checked + label {
+    color: #969bb0;
+    text-decoration: line-through;
+}
+
+/* ===== 7. Edit and Delete buttons ===== */
+#taskList button,
+.taskList button {
+    border: none;
+    border-radius: 9px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#taskList button:hover,
+.taskList button:hover {
+    transform: translateY(-1px);
+}
+
+#taskList button:last-child,
+.taskList button:last-child {
+    background: #f0efff;
+    color: var(--primary);
+}
+
+#taskList button:last-child:hover,
+.taskList button:last-child:hover {
+    background: #e4e1ff;
+}
+
+#taskList button:nth-last-child(2),
+.taskList button:nth-last-child(2) {
+    background: #fff0f2;
+    color: var(--danger);
+}
+
+#taskList button:nth-last-child(2):hover,
+.taskList button:nth-last-child(2):hover {
+    background: #ffe1e6;
+}
+
+/* ===== 8. Add-task panel ===== */
+.add-task {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+}
+
+#taskInput {
+    flex: 1;
+    min-width: 180px;
+}
+
+#taskCategory {
+    min-width: 145px;
+    cursor: pointer;
+}
+
+#addTaskBtn {
+    min-height: 46px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+#addTaskBtn:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 5px 14px rgba(81, 69, 229, 0.22);
+    transform: translateY(-1px);
+}
+
+#addTaskBtn:active {
+    transform: scale(0.98);
+}
+
+/* ===== 9. Keyboard accessibility ===== */
+input,
+select,
+button {
+    font-family: inherit;
+}
+
+/* ===== 10. Mobile layout ===== */
+@media (max-width: 600px) {
+    body {
+        padding: 20px 15px;
+    }
+
+    .progress-container {
+        padding: 20px;
+    }
+
+    #SearchTask {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+
+    #categoryFilter {
+        width: 100%;
+        margin-bottom: 18px;
+    }
+
+    .task-filter {
+        gap: 8px;
+    }
+
+    .task-filter button {
+        flex: 1;
+        padding: 10px 12px;
+    }
+
+    #taskList > div,
+    .taskList > div {
+        gap: 10px;
+        padding: 13px;
+    }
+
+    #taskList label,
+    .taskList label {
+        flex-basis: 55%;
+    }
+
+    .add-task {
+        padding: 16px;
+    }
+
+    #taskInput,
+    #taskCategory,
+    #addTaskBtn {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Dashboard layout */
+body {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 36px clamp(18px, 4vw, 56px);
+    background:
+        radial-gradient(ellipse at 90% 0%, #e9e7ff 0%, transparent 32%),
+        #f5f6fc;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: clamp(32px, 4vw, 42px);
+    letter-spacing: -1.5px;
+}
+
+.header h1::before {
+    content: "✓";
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-right: 12px;
+    border-radius: 13px;
+    background: #5145e5;
+    color: white;
+    font-size: 23px;
+    vertical-align: 5px;
+    box-shadow: 0 7px 18px #5145e533;
+}
+
+/* Progress dashboard */
+.progress-container {
+    height: auto;
+    width: 100%;
+    padding: 26px 30px;
+    margin: 0 0 24px;
+    border: 1px solid #e8e8f5;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 12px 35px #34376b0b;
+}
+
+.progress-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.section-label {
+    margin-bottom: 5px;
+    color: #7775bd;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+
+.progress-top h2 {
+    margin-bottom: 5px;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+}
+
+#progressText {
+    color: #7a809b;
+    font-size: 14px;
+}
+
+.progress-percent {
+    color: #5145e5;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.progress-track {
+    height: 10px;
+    margin-top: 22px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #eeedfc;
+}
+
+.progress-fill {
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #7668ff, #5145e5);
+    transition: width 0.5s ease;
+}
+
+.progress-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    color: #858aa3;
+    font-size: 12px;
+}
+
+/* Search and filters */
+#SearchTask,
+#categoryFilter {
+    margin-top: 2px;
+}
+
+.task-filter button {
+    margin: 0;
+    padding: 11px 21px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.task-filter button:hover {
+    background: #eeedff;
+    color: #5145e5;
+    transform: translateY(-1px);
+}
+
+/* Task cards */
+#taskList > div {
+    min-height: 66px;
+    padding: 15px 18px;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px #292d6508;
+}
+
+#taskList label {
+    font-weight: 550;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 5px 11px;
+    border-radius: 20px;
+    background: #f0efff;
+    color: #6354db;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.category-badge.work {
+    background: #e8f3ff;
+    color: #2674d9;
+}
+
+.category-badge.personal {
+    background: #f1eaff;
+    color: #8753d6;
+}
+
+.category-badge.shopping {
+    background: #e5f8ed;
+    color: #238454;
+}
+
+/* Add-task card */
+.add-task {
+    margin-top: 24px;
+    padding: 24px;
+    border-radius: 20px;
+    border: 1px solid #e8e8f5;
+    background: white;
+    box-shadow: 0 12px 35px #34376b0b;
+}
+
+.add-task:focus-within {
+    border-color: #d5d0ff;
+}
+
+#addTaskBtn {
+    background: linear-gradient(135deg, #6556f5, #4b3dd7);
+    box-shadow: 0 5px 14px #5145e526;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 22px 14px;
+    }
+
+    .progress-container {
+        padding: 21px 18px;
+    }
+
+    .progress-top h2 {
+        font-size: 19px;
+    }
+
+    .progress-percent {
+        font-size: 25px;
+    }
+
+    #taskList > div {
+        gap: 9px;
+    }
+
+    .category-badge {
+        order: 3;
+    }
+
+    #taskList button {
+        padding: 7px 9px;
+    }
+
+    .progress-footer {
+        flex-wrap: wrap;
+    }
+}
